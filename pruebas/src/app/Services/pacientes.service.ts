@@ -20,10 +20,10 @@ export class PacientesService {
 
   // a diferencia que aqui me va a venior el idpaciente
 
-  uno(idPacientes:number):Observable<IPacientes>{
+  uno(libro_id:number):Observable<IPacientes>{
     // tambien creamos la variable pac 
     var pac = new FormData();
-    pac.append('libro_id',idPacientes.toString())
+    pac.append('libro_id',libro_id.toString())
     return this.http.post<IPacientes>(url + 'uno',pac);
   }
 
@@ -32,30 +32,32 @@ export class PacientesService {
     // poner tal y como esta en la base
     var pac = new FormData();
     pac.append('titulo',paciente.titulo)
+    pac.append('fecha_publicacion',paciente.fecha_publicacion.toString())
     pac.append('editorial',paciente.editorial)
     pac.append('genero',paciente.genero)
     pac.append('sinopsis',paciente.sinopsis)
-    pac.append('estado',paciente.estado.toString())
+    // pac.append('autor_id',paciente.autor_id.toString())
 
     // pac.append('tipo',paciente.tipo.toString())
-    pac.append('fecha_publicacion',paciente.fecha_publicacion.toString())
+   
     return this.http.post<string>(url + 'insertar',pac);
   }
-  actualizar(paciente:IPacientes, idPacientes:number):Observable<string>{
+  actualizar(paciente:IPacientes, libro_id:number):Observable<string>{
     var pac = new FormData();
-    pac.append('libro_id',idPacientes.toString())
+    pac.append('libro_id',libro_id.toString())
     pac.append('titulo',paciente.titulo)
+    pac.append('fecha_publicacion',paciente.fecha_publicacion.toString())
     pac.append('editorial',paciente.editorial)
     pac.append('genero',paciente.genero)
     pac.append('sinopsis',paciente.sinopsis)
-    pac.append('estado',paciente.estado.toString())
+    pac.append('autor_id',paciente.autor_id.toString())
     // pac.append('tipo',paciente.tipo.toString())
-    pac.append('fecha_publicacion',paciente.fecha_publicacion.toString())
+ 
     return this.http.post<string>(url + 'actualizar',pac);
   }
-  eliminar(idPacientes:number):Observable<string>{
+  eliminar(libro_id:number):Observable<string>{
     var pac = new FormData();
-    pac.append('libro_id',idPacientes.toString())
+    pac.append('libro_id',libro_id.toString())
 
     // los nombres van de acuerdo al api de la conexion de la base de datos 
     return this.http.post<string>(url + 'eliminar',pac);

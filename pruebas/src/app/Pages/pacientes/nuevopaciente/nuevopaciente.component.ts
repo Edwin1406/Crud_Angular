@@ -12,7 +12,7 @@ export class NuevopacienteComponent implements OnInit {
     listaEstados : any[];
     listaTipos : any[];
     estadopaciente : boolean;
-    idPacientes : number;
+    libro_id : number;
 
     constructor(private fb : FormBuilder, private pacienteServicio : PacientesService, private estadocivil : EstadoCivilService, private tiposagre : TipoSangreService, private toastr : ToastrService, private rutas : Router, private parametrosurl : ActivatedRoute) {}
 
@@ -21,12 +21,12 @@ export class NuevopacienteComponent implements OnInit {
     ngOnInit(): void {
         this.paciente_form = this.fb.group({
             titulo: new FormControl("", Validators.required),
+            fecha_publicacion: new FormControl("", Validators.required),
             editorial: new FormControl("", Validators.required),
             genero: new FormControl("", Validators.required),
             sinopsis: new FormControl("", Validators.required),
-            estado: new FormControl("", Validators.required),
+            autor_id: new FormControl("", Validators.required),
             // tipo: new FormControl("", Validators.required),
-            fecha_publicacion: new FormControl("", Validators.required)
         });
         this.estadocivil.todos().subscribe((lista) => (this.listaEstados = lista));
         this.tiposagre.todos().subscribe((lista) => {
@@ -37,17 +37,17 @@ export class NuevopacienteComponent implements OnInit {
         this.parametrosurl.params.subscribe((parametros) => {
             if (parametros["id"] !== undefined) {
                 this.estadopaciente = true;
-                this.idPacientes = parametros["id"];
-                this.pacienteServicio.uno(this.idPacientes).subscribe((unpaceinte) => {
+                this.libro_id = parametros["id"];
+                this.pacienteServicio.uno(this.libro_id).subscribe((unpaceinte) => {
                     this.paciente_form.patchValue({
                         titulo: unpaceinte.titulo,
+                        fecha_publicacion: unpaceinte.fecha_publicacion,
                         editorial: unpaceinte.editorial,
                         genero: unpaceinte.genero,
                         sinopsis: unpaceinte.sinopsis,
-                        estado: unpaceinte.estado,
+                        autor_id: unpaceinte.autor_id,
                         
                         // estado: unpaceinte.estado,
-                        fecha_publicacion: unpaceinte.fecha_publicacion
                     });
                 });
             }
@@ -73,7 +73,7 @@ export class NuevopacienteComponent implements OnInit {
             });
         }else{
 
-          this.pacienteServicio.actualizar(this.paciente_form.value, this.idPacientes).subscribe((datos) => {
+          this.pacienteServicio.actualizar(this.paciente_form.value, this.libro_id).subscribe((datos) => {
             
             if (datos == "ok") {
                 this.toastr.success('<span class="now-ui-icons ui-1_bell-53"></span> Se guardo con exito</b> ', "", {

@@ -41,11 +41,11 @@
                     <td>{{paciente.editorial}}</td>
                     <td>{{paciente.genero}}</td>
                     <td>{{paciente.sinopsis}}</td>
-                    <td>{{paciente.estado }}</td>
+                    <td>{{paciente.autor_id }}</td>
                     <!-- <td>{{paciente.tipo}}</td> -->
                     <td>
                         <button type="button" class="btn btn-success" [routerLink]="['/editarpaciente/' + paciente.libro_id]" >Editar</button>
-                        <button type="button" class="btn btn-default" (click)="eliminar(paciente.idPacientes)">Eliminar</button>
+                        <button type="button" class="btn btn-default" (click)="eliminar(paciente.libro_id)">Eliminar</button>
 
                     </td>
                 </tr>

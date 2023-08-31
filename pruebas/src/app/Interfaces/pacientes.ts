@@ -1,11 +1,12 @@
 
 export interface IPacientes {
-    idPacientes:number;
+    libro_id:number;
+    fecha_publicacion:Date;
     titulo:string;
     editorial:string;
     genero:string;
     sinopsis:string;
-    estado:number;
+    autor_id:number;
     // tipo:number;
-    fecha_publicacion:Date
+ 
 }
